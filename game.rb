@@ -1,4 +1,3 @@
-@deerprompt = "> "
 
 ##Classes
 
