@@ -1,4 +1,3 @@
-
 ##Classes
 
 # defines main player
@@ -7,7 +6,7 @@ class Player
    attr_accessor :health
    attr_accessor :mana
    attr_accessor :stamina
-
+   
    def initialize
       @health = 55
       @mana= 55
@@ -24,15 +23,25 @@ class Animal
    attr_accessor :name
 end
 
-class Deer < Animal
+class Dragon < Animal
+   attr_accessor :power
+   def initialize
+      @power = 15
+      @health = 45
+      @name = "Chillfrost Dragon"
+      @desc = "Guardian of the Chilledge sword. Frost attack of 15"
+   end
+end
 
+class Deer < Animal
+   
    def initialize
       @health = 20
    end
 end
 
 class Hare < Animal
-
+   
    def initialize
       @health = 20
    end
@@ -43,33 +52,35 @@ class Weapon
 end
 
 class Mana < Weapon
-
+   
    def initialize
       @power = 20
    end
-
+   
 end
 
 #hunting bow and arrow
 class Hbow < Weapon
-
+   
    #initializes the power value. which will be called into the attack method
    def initialize
       @power = 20
    end
-
+   
 end
 #Bandit's blade you can earn
 class Bblade < Weapon
-
+   
    #initializes the power value. which will be called into the attack method
    def initialize
       @power = 20
    end
-
+   
 end
 
 #Variable definitiions
+
+
 
 player = Player.new
 playerbow = Hbow.new
@@ -92,11 +103,11 @@ $player_mana_attack = player.attack (playermana)
 #Methods
 
 def get_user_name
-
+   
    puts "Greetings adventurer! What is your name?"
-
+   
    @name = gets.chomp
-
+   
    puts "Welcome #{@name}."
 end
 
@@ -106,8 +117,8 @@ def intro
 end
 
 def entrance_decision_enter_cave
-
-
+   
+   
    puts "One of the bandits stop you."
    puts "Bandit: Stop right there! You need to pay the toll to enter this cave."
    puts "(type no money, intimidate, run away)"
@@ -131,6 +142,7 @@ end
 
 #agree to bandit's favor and start this story
 def entrance_decision_enter_cave_intimidate
+   puts "************************************************************"
    puts "Bandit: oh? so you think you're tough? Tell you what, you defeat me and I'll give you my sword and free passage."
    puts "You get in a brawl with the bandit leader and win."
    puts "Bandit: Argh. no more please. you can go in the cave just please no more."
@@ -138,14 +150,15 @@ def entrance_decision_enter_cave_intimidate
    puts "Bandit Sword power: 20"
    @enter_cave = true
    @bandit_beat = true
+   @bandit_blade = true
 end
 def riddle_stamp
-
-
+   
+   puts "************************************************************"
    puts "What can travel around the world while staying in a corner?"
    new_answer = gets.chomp.downcase.rstrip.lstrip
-
-
+   
+   
    if new_answer == "stamp"
       puts "Bandit: you're absolutelyl correct!"
       puts "Here take this sword as a prize"
@@ -159,61 +172,57 @@ def riddle_stamp
 end
 
 def bandit_favor
+   puts "************************************************************"
    puts "Bandit: all I need you to do is solve this riddle."
    puts "Who makes it, has no need of it."
    puts "Who buys it, has no use for it."
    puts "Who uses it can neither see nor feel it."
    puts "What is it? (type only the answer)"
    @riddle_answer = gets.chomp.downcase.rstrip.lstrip
-
+   
    if  @riddle_answer == "coffin"
-
+      
       puts riddle_answer_coffin
    else
       puts "Wrong! the answer is coffin"
       puts ":p"
       puts "Let's try a new riddle."
       puts "However if you get it wrong we'll skin you alive for our entertainment ;)"
-
-
-
+      
+      
+      
       puts riddle_stamp
    end
 end
 
 def riddle_answer_coffin
-
+   
    puts "Bandit: you're absolutelyl correct!"
    puts "Here take this sword as a prize"
-
+   
    @enter_cave = true
-
+   
    @bandit_beat = true
 end
 #hunter run away story agree to task
 def entrance_decision_enter_cave_money
-
-
+   
+   puts "************************************************************"
    puts "Bandit: Ha! You sad poor bum! well if you really want to do get into this cave then I need you to do me a favor. interested?"
    puts "type yes, no, or what kind of favor?"
    while user_input = gets.chomp.downcase.rstrip.lstrip # loop while getting user input
       case user_input
       when "what kind of favor?"
-
-
-
          puts "Bandit: Don't worry about it! now are you in or are you out?"
          puts "type yes or no"
-
-         # make sure to break so you don't ask again
+         
+         
       when "yes"
-
+         
          puts bandit_favor
-
-
-         break # and again
+         break
       when "no"
-
+         
          puts "Bandit: Get the hell out of here before I get pissed."
          run_away_story
          break
@@ -224,45 +233,46 @@ def entrance_decision_enter_cave_money
    end
 end
 def run_away_story_yes
+   puts "************************************************************"
    puts "Wonderful! I really appreciate it!"
    puts "Here, you're going to need this!"
    puts "Hunting Bow equipped."
    puts "Hunting Bow power = 20 - 30"
-   hunter_weapons = true
+   @hunter_weapons = true
    @player_hunt_bow_attack = @player.attack(@playerbow)
-
+   
    frey_favor
 end
 def hunting_bow_deer_attack
-
+   
    puts "You used your Hunting Bow!"
-
+   
    if ( @deer_health - @player_hunt_bow_attack) <= 0
       puts "Deer health at 0!"
-      puts "You collect the deer"
+      puts "************************************************************"
       @deer_equipped = true
-
+      
    end
 end
 def mana_attack_deer_attack
    puts "Second response"
    if ( @deer_health - @player_mana_attack) <= 0
       puts "Deer health at 0!"
-      puts "You collect the deer"
+      puts "************************************************************"
       @deer_equipped = true
-
+      
    end
 end
 def hunting_bow_hare_attack
-
-
+   
+   
    puts "You used your Hunting Bow!"
-
+   
    if (@hare_health - @player_hunt_bow_attack) <= 0
       puts "Hare health at 0!"
-      puts "You collect the deer"
+      puts "************************************************************"
       @hare_equipped = true
-
+      
    end
 end
 
@@ -272,16 +282,17 @@ def mana_attack_hare_attack
    puts "You used your mana attack!"
    if (@hare_health - @player_mana_attack) <= 0
       puts "Hare health at 0!"
-      puts "You collect the hare"
+      puts "************************************************************"
       @hare_equipped = true
-
+      
    end
 end
 def right_path
+   puts "************************************************************"
    puts "Right path chosen"
    puts "You encounter a hare"
-
-   @hare = Deer.new
+   
+   @hare = Hare.new
    @hare_health = @hare.health
    puts "What do you do? (type attack or run away)"
    while user_input = gets.chomp.downcase.rstrip.lstrip  # loop while getting user input
@@ -304,11 +315,11 @@ def right_path
                # print the prompt, so the user knows to re-enter input
             end
          end
-
-
+         
+         
          break # make sure to break so you don't ask again
       when "run away"
-
+         
          puts "you go back to the entrance of the two paths"
          frey_favor
          break
@@ -320,12 +331,12 @@ def right_path
    end
 end
 def attack_story_deer_attack
-
+   
    puts "type hunting bow or mana attack"
    while user_input = gets.chomp.downcase.rstrip.lstrip  # loop while getting user input
       case user_input
       when "hunting bow"
-
+         
          hunting_bow_deer_attack
          break # make sure to break so you don't ask again
       when "mana attack"
@@ -339,9 +350,10 @@ def attack_story_deer_attack
 end
 
 def left_path
+   puts "************************************************************"
    puts "Left path chosen"
    puts "You encounter a Deer."
-
+   
    @deer = Deer.new
    @deer_health = @deer.health
    puts "What do you do? (type attack or run away)"
@@ -352,7 +364,7 @@ def left_path
          puts "Deer Health: 20"
          puts "What attack would you like to do?"
          puts attack_story_deer_attack
-
+         
          break # make sure to break so you don't ask again
       when "run away"
          puts "you go back to the entrance of the two paths"
@@ -366,6 +378,7 @@ def left_path
    end
 end
 def talk_to_stranger
+   puts "************************************************************"
    puts "you: are you alright?"
    puts "the stranger jumps back and pulls out a short sword."
    puts "you: woah woah! I'm not looking for any trouble."
@@ -381,12 +394,12 @@ def talk_to_stranger
    puts "..."
    puts "Frey: Tell you what #{@name}. You help me catch dinner for my family and I'll create a distraction at the cave so you can sneak in."
    puts "What do you say? (type yes or no)"
-
+   
    while user_input = gets.chomp.downcase.rstrip.lstrip # loop while getting user input
       case user_input
       when "yes"
-
-
+         
+         
          run_away_story_yes
          break # make sure to break so you don't ask again
       when "no"
@@ -400,17 +413,18 @@ def talk_to_stranger
 end
 
 def run_away_story
+   puts "************************************************************"
    puts "you run away and head back towards the local village."
    puts "on the way there you encounter someone who seems to be cursing into the air."
    puts "what do you do? (type talk to stranger, or keep walking)\n"
    while user_input = gets.chomp.downcase.rstrip.lstrip # loop while getting user input
       case user_input
       when "talk to stranger"
-
+         
          talk_to_stranger
          break
       when "keep walking"
-
+         
          keep_walking
          break # and again
       else
@@ -420,25 +434,108 @@ def run_away_story
    end
 end
 
-def entrance_decision
+def variable_assignment
+   
+   
+   
    @player = Player.new
+   @player_health = @player.health
    @playerbow = Hbow.new
    @playerbblade = Bblade.new
    @playermana = Mana.new
    @enter_cave = nil
-
+   
+   @chilledge_dragon = Dragon.new
+   @chilledge_dragon_name = @chilledge_dragon.name
+   @chilledge_dragon_attack = @chilledge_dragon.power
+   @chilledge_dragon_health = @chilledge_dragon.health
+   #
+   # puts @chilledge_dragon
+   # puts @chilledge_dragon_name
+   # puts @player_health - @chilledge_dragon_attack
+   
    @player_mana_attack = @player.attack(@playermana)
+   @player_blade_attack = @player.attack(@playerbblade)
+end
+
+
+
+
+def attack_dragon_mana_attack
+   
+   if (@chilledge_dragon_health - @player_mana_attack) <= 0
+      puts "You killed the dragon!"
+      puts "You have the sword!"
+      puts "You won!!"
+      @dragon_dead = true
+   elsif (@chilledge_dragon_health - @player_mana_attack) > 0
+      @chilledge_dragon_health -= @player_mana_attack
+      puts "The dragon's health is at #{@chilledge_dragon_health}"
+      dragon_attack
+      puts "Your health is #{@player_health}"
+   end
+end
+
+def attack_dragon_blade_attack
+   
+   
+   if (@chilledge_dragon_health - @player_blade_attack) <= 0
+      puts "You killed the dragon!"
+      puts "You have the sword!"
+      puts "You won!!"
+      @dragon_dead = true
+   elsif (@chilledge_dragon_health - @player_blade_attack) > 0
+      @chilledge_dragon_health -= @player_blade_attack
+      puts "The dragon's health is at #{@chilledge_dragon_health}"
+      dragon_attack
+      puts "Your health is #{@player_health}"
+   end
+end
+
+def attack_dragon_bow_attack
+   
+   
+   
+   if (@chilledge_dragon_health - @player_hunt_bow_attack) <= 0
+      puts "You killed the dragon!"
+      puts "You have the sword!"
+      puts "You won!!"
+      @dragon_dead = true
+   elsif (@chilledge_dragon_health - @player_hunt_bow_attack) > 0
+      @chilledge_dragon_health -= @player_hunt_bow_attack
+      puts "The dragon's health is at #{@chilledge_dragon_health}"
+      dragon_attack
+      puts "Your health is #{@player_health}"
+   end
+end
+
+
+
+
+def dragon_attack
+   puts "The dragon attacks"
+   if (@player_health - @chilledge_dragon_attack) <= 0
+      puts "The dragon killed you!!!"
+   elsif (@player_health - @chilledge_dragon_attack) > 0
+      @player_health -= @chilledge_dragon_attack
+      puts "Your health is at #{@player_health}"
+      cave
+   end
+   # cave
+end
+def entrance_decision
+   variable_assignment
    puts "you encounter a group of bandits at the entrance. what do you do? (type attack, enter cave, or run away)"
-
-
-
+   
+   
+   
    while user_input = gets.chomp.downcase.rstrip.lstrip # loop while getting user input
       case user_input
       when "attack"
-
+         
          puts "You attack the group of bandits!"
          puts "You are outnumbered and die in battle."
-
+         
          break
       when "enter cave"
          entrance_decision_enter_cave
@@ -460,9 +557,9 @@ def frey_distraction_on
 end
 
 def enter_cave_on
-
+   
    @enter_cave = true
-
+   
 end
 
 def frey_favor
@@ -471,7 +568,7 @@ def frey_favor
    puts "One going to the left and one to the right"
    puts "Which do you chose?"
    #catch (:back)
-
+   
    while user_input = gets.chomp.downcase.rstrip.lstrip # loop while getting user input
       case user_input
       when "left"
@@ -487,24 +584,26 @@ def frey_favor
    end
 end
 def animals_equipped
-
-
+   
+   
    if @deer_equipped
       puts "You have the deer"
       puts "You return to Frey and give him the deer."
       puts "Frey: Wow! Thank you so much! I can feed my family or whatever."
       puts "You: Ready to cause a distraction?"
       puts "Frey: yup! let's go."
+      puts "************************************************************"
       frey_distraction_on
    end
-
+   
    if @hare_equipped
       puts "You have the hare"
       puts "You return to Frey and give him the hare."
       puts "Frey: Wow! Thank you so much! I can feed my family or whatever."
       puts "You: Ready to cause a distraction?"
       puts "Frey: yup! let's go."
-
+      puts "************************************************************"
+      
       frey_distraction_on
    end
 end
@@ -513,40 +612,82 @@ def frey_distracts
    if @frey_distraction
       puts "Frey throws a rock at the Bandit leader."
       puts "The bandits chase him and the entrance is clear."
+      puts "************************************************************"
       puts enter_cave_on
    end
 end
 
 def end_game
-
-
+   
+   
    if @enter_cave && @frey_distraction
-
-      puts "You have entered the cave and you have won the sword! you win!"
-
+      
+      puts "You have entered the cave and found the sword! but there's a dragon!!"
+      puts "You can't run away from this one!"
+      
+      dragon_attack
    elsif @enter_cave && @bandit_beat
-
-      puts "You have entered the cave and you have found the sword! you win!"
-
+      
+      puts "You have entered the cave and found the sword! but there's a dragon!!"
+      puts "You can't run away from this one!"
+      
+      dragon_attack
+      
    end
 end
 
-def while_loop
-
-   while user_input = gets.chomp # loop while getting user input
+def cave
+   
+   puts "Use your best attacks to defeat the dragon!"
+   
+   while user_input = gets.chomp.downcase.rstrip.lstrip || !@dragon_dead # loop while getting user input
       case user_input
-      when "1"
+      when "mana attack"
          puts "First response"
+         attack_dragon_mana_attack
+         if @dragon_dead
+            break
+         end
          break # make sure to break so you don't ask again
-      when "2"
-         puts "Second response"
-         break # and again
+      when "hunting bow attack"
+         if (@hunter_weapons == true)
+            attack_dragon_bow_attack
+            if @dragon_dead
+               break
+            end
+         else
+            puts "You don't have that weapon."
+         end
+      when "bandit blade attack"
+         if @bandit_blade == true
+            attack_dragon_blade_attack
+            if @dragon_dead
+               break
+            end
+         else
+            puts "You don't have that weapon."
+         end
       else
-         puts "Please select either 1 or 2"
+         puts "Please type mana attack, hunting bow attack, or bandit blade attack (if you have the weapon)"
          # print the prompt, so the user knows to re-enter input
       end
    end
-
+   # puts ""
+   #
+   # while user_input = gets.chomp # loop while getting user input
+   #    case user_input
+   #    when "1"
+   #       puts "First response"
+   #       break # make sure to break so you don't ask again
+   #    when "2"
+   #       puts "Second response"
+   #       break # and again
+   #    else
+   #       puts "Please select either 1 or 2"
+   #       # print the prompt, so the user knows to re-enter input
+   #    end
+   # end
+   
 end
 ##################################################
 #start game
