@@ -211,6 +211,7 @@ module MyMethods
 
       frey_favor
    end
+
    def hunting_bow_deer_attack
 
       puts "You used your Hunting Bow!"
@@ -234,15 +235,11 @@ module MyMethods
    end
 
    def hunting_bow_hare_attack
-
-
       puts "You used your Hunting Bow!"
-
       if (@hare_health - @player_hunt_bow_attack) <= 0
          puts "Hare health at 0!"
          puts "************************************************************"
          @hare_equipped = true
-
       end
    end
 
@@ -260,7 +257,6 @@ module MyMethods
       puts "************************************************************"
       puts "Right path chosen"
       puts "You encounter a hare"
-
       @hare = Hare.new
       @hare_health = @hare.health
       puts "What do you do? (type attack or run away)"
@@ -284,8 +280,6 @@ module MyMethods
                   # print the prompt, so the user knows to re-enter input
                end
             end
-
-
             break # make sure to break so you don't ask again
          when "run away"
 
@@ -369,8 +363,6 @@ module MyMethods
       while user_input = gets.chomp.downcase.rstrip.lstrip # loop while getting user input
          case user_input
          when "yes"
-
-
             run_away_story_yes
             break # make sure to break so you don't ask again
          when "no"
@@ -391,11 +383,9 @@ module MyMethods
       while user_input = gets.chomp.downcase.rstrip.lstrip # loop while getting user input
          case user_input
          when "talk to stranger"
-
             talk_to_stranger
             break
          when "keep walking"
-
             keep_walking
             break # and again
          else
@@ -442,7 +432,6 @@ module MyMethods
 
    def attack_dragon_blade_attack
 
-
       if (@chilledge_dragon_health - @player_blade_attack) <= 0
          puts "You killed the dragon!"
          puts "You have the sword!"
@@ -458,8 +447,6 @@ module MyMethods
 
    def attack_dragon_bow_attack
 
-
-
       if (@chilledge_dragon_health - @player_hunt_bow_attack) <= 0
          puts "You killed the dragon!"
          puts "You have the sword!"
@@ -473,9 +460,6 @@ module MyMethods
       end
    end
 
-
-
-
    def dragon_attack
       puts "The dragon attacks"
       if (@player_health - @chilledge_dragon_attack) <= 0
@@ -487,6 +471,7 @@ module MyMethods
       end
       # cave
    end
+
    def entrance_decision
       variable_assignment
       puts "you encounter a group of bandits at the entrance. what do you do? (type attack, enter cave, or run away)"
@@ -510,6 +495,7 @@ module MyMethods
          end
       end
    end
+   
    def keep_walking
       puts "you head back home and live a boring adventureless life."
    end
